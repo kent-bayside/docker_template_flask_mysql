@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  web:
+    container_name: docker_flask_mysql_template_web
+    image: python:3.11
+    build: .
+    environment:
+      FLASK_ENV: deveropment
+    ports:
+      - 5000:5000
+    volumes:
+      - ./:/usr/src/app
+    depends_on:
+      - db
+
+  db:
+    container_name: docker_flask_mysql_template_db
+    restart: always
+    image: mysql:8.0.25
+    environment:
+      MYSQL_ROOT_PASSWORD: uwr2y#QwyKh3reYm
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8mb4 --explicit_defaults_for_timestamp=true --default-authentication-plugin=mysql_native_password    
+    ports:
+      - 3306:3306
